@@ -10,13 +10,21 @@ class RecordStore extends Component {
         var messageArray = new Array(this.props.records.length);
 
         this.state = {
+            sortMethod: 'album',
             messages: messageArray
         };
 
+        this.handleChange = this.handleChange.bind(this);
         this.displayMessage = this.displayMessage.bind(this);
+        this.sortRecords = this.sortRecords.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ sortMethod: event.target.value });
     }
 
     displayMessage(id) {
+        console.log(id);
         let msgs = [...this.state.messages];
         let msg = { ...msgs[id] };
         msg = '\u2713\u2713\u2713';
@@ -34,10 +42,34 @@ class RecordStore extends Component {
         }, 1000);
     }
 
+    sortRecords(sortMethod) {
+        if (sortMethod === 'album') {
+            this.props.records.sort((a, b) => a.album.localeCompare(b.album));
+        } else if (sortMethod === 'artist') {
+            this.props.records.sort((a, b) => a.artist.localeCompare(b.artist));
+        } else if (sortMethod === 'price-low-high') {
+            this.props.records.sort((a, b) => a.price.localeCompare(b.price));
+        } else if (sortMethod === 'price-high-low') {
+            this.props.records.sort((a, b) => a.price.localeCompare(b.price));
+            this.props.records.reverse();
+        }
+    }
+
     render() {
+        this.sortRecords(this.state.sortMethod);
+
         return (
             <div className="record-store">
+                <h2>Sort By:</h2>
+                <select value={this.state.value} onChange={this.handleChange}>
+                    <option value="album">Album</option>
+                    <option value="artist">Artist</option>
+                    <option value="price-low-high">Price: Low - High</option>
+                    <option value="price-high-low">Price: High - Low</option>
+                </select>
+                <br />
                 <div className="container">
+
                     {this.props.records.map((record, index) => {
                         return (<div className="record-col" key={index}>
                             <Link to={`/records/${record.id}`} onClick={() => { this.props.selectRecord(record) }}>
@@ -54,7 +86,7 @@ class RecordStore extends Component {
                                 <span>{this.state.messages[index]}</span>
                             </div>
                             <br />
-                            <button onClick={() => { this.displayMessage(record.id - 1); this.props.addToCart(record); }}>Add to Cart</button>
+                            <button onClick={() => { this.displayMessage(index); this.props.addToCart(record); }}>Add to Cart</button>
                         </div>)
 
                     })}

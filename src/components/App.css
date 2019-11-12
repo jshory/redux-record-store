@@ -40,12 +40,35 @@ nav a:hover {
 
 /* RecordStore component CSS */
 .record-store {
-    margin-top: 50px;
+    margin-top: 20px;
+}
+
+.record-store h2 {
+    text-align: center;
+}
+
+.record-store select {
+    font-family: 'Oxygen', sans-serif;
+    appearance: none;
+    background-color: #fff5dd;
+    background: url(https://p7.hiclipart.com/preview/638/1015/818/arrow-drop-down-list-computer-icons-triangles-vector.jpg) 96% / 15% no-repeat #eee;
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    width: 200px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 18px;
+    padding-left: 15px;
 }
 
 .container {
     margin-left: 10%;
     margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .record-col {
@@ -53,7 +76,6 @@ nav a:hover {
     cursor: pointer;
     text-decoration: none;
     position: relative;
-    float: left;
     width: 23%;
     min-height: 280px;
     margin-left: 1%;
@@ -176,6 +198,10 @@ img {
     text-align: center;
     align-items: flex-start;
     padding-top: 10px;
+}
+
+.back-button a {
+    color: black;
 }
 
 .back-button:hover {
